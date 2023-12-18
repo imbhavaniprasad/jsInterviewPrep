@@ -7,12 +7,17 @@
     <title>JS Interview Prep</title>
 </head>
 <body>
-    <button id="btn">Throttle</button>
     <script>
-  const btn = document.getElementById('btn');
-  btn.addEventListener('click',  throttle([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 2, (task) => {
-  console.log(task);
-}, 2000));
+  const searchEngine = new InMemorySearch();
+searchEngine.addDocuments('Movies', 
+                    {name: 'Bauhubali', rating: 8.5, year: 2015}, 
+                    {name: 'Black Adam', rating: 8.7, year: 2022}, 
+                    {name: 'Jhon Wick 4', rating: 8.2, year: 2023}, 
+                    {name: 'Black Panther', rating: 9.0, year: 2022},
+                    {name: 'Bahubali', rating: 5.2, year: 2019}, 
+                    {name: 'Animal', rating: 4, year: 2023}
+                   );
+console.log(searchEngine.search('Movies', (e) => e.rating < 8, {key: 'rating', asc: false}));
     </script>
 </body>
 </html>
