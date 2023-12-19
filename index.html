@@ -7,38 +7,10 @@
     <title>JS Interview Prep</title>
 </head>
 <body>
-    <b>Check console</b>
+    <b>Create Analytics SDk : Check console</b>
     <script>
-// test function
-const testFunction = () => {
-  let count = 0;
-  
-  return function(){
-    count++;
-    if(count < 4){
-      throw "failed";
-    }else{
-      return "hello";
-    }
-  }
-};
 
 
-let t = testFunction();
-let c = circuitBreaker(t, 3, 200);
-
-c(); // "error"
-c(); // "error"
-c(); // "error"
-
-// service is closed for 200 MS
-c(); // "service unavailable" 
-c(); // "service unavailable"
-c(); // "service unavailable"
-c(); // "service unavailable"
-c(); // "service unavailable"
-// service becomes available after 200ms
-setTimeout(() => {console.log(c());}, 200); // "hello";
     </script>
 </body>
 </html>
