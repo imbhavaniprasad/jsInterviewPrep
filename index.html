@@ -6,10 +6,20 @@
     <script src="script.js" src="text/javascript"></script>
     <title>JS Interview Prep</title>
 </head>
+<style>
+    .hidden{
+        display: none;
+    }
+</style>
 <body>
-    <b>Create Analytics SDk : Check console</b>
-    <script>
+    <b>Fetch with Time Out : Check console</b><br>
+    <button id="fetchBtn">Fetch</button>
+    <button id="cancelBtn" class="hidden">Cancel</button>
+</body>
 
+    <script>
+var fetchBtn = document.getElementById("fetchBtn");
+fetchBtn.addEventListener("click",fetchWithTimeout('https://jsonplaceholder.typicode.com/todos/1', 100))
 
     </script>
 </body>
