@@ -6,21 +6,17 @@
     <script src="script.js" src="text/javascript"></script>
     <title>JS Interview Prep</title>
 </head>
-<style>
-    .hidden{
-        display: none;
-    }
-</style>
 <body>
-    <b>Fetch with Time Out : Check console</b><br>
-    <button id="fetchBtn">Fetch</button>
-    <button id="cancelBtn" class="hidden">Cancel</button>
+    <b>Debounce with controls (Leading & Trailing) : Check console</b><br>
+ <input type="text" id="search" placeholder="search..."/>
 </body>
 
     <script>
-var fetchBtn = document.getElementById("fetchBtn");
-fetchBtn.addEventListener("click",fetchWithTimeout('https://jsonplaceholder.typicode.com/todos/1', 100))
-
+var search = document.getElementById("search");
+const logSearch = (e)=>{
+}
+const  debouncedSearch = debounce(logSearch,1000);
+search.addEventListener("keyup", debouncedSearch)
     </script>
 </body>
 </html>
