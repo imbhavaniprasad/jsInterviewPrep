@@ -9,14 +9,16 @@
 </head>
 
 <body>
-    <b>Fetch with Time Out : Check console</b><br>
-    <button id="fetchBtn">Fetch</button>
+    <b>Piping 2 : Check console</b><br>
 </body>
 
 <script>
-    var fetchBtn = document.getElementById("fetchBtn");
-    fetchBtn.addEventListener("click", fetchWithTimeout('https://jsonplaceholder.typicode.com/todos/1', 100))
-
+    const value = { salary: 45000 }
+    const getSalary = (person) => person.salary;
+    const addBonus = (salary) => salary + 2000;
+    const deduct = (salary) => salary - (salary * 0.1);
+    const ans = pipe(getSalary, addBonus, deduct)(value);
+    console.log(ans);
 </script>
 </body>
 
