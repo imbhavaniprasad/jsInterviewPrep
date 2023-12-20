@@ -9,16 +9,18 @@
 </head>
 
 <body>
-    <b>Piping 2 : Check console</b><br>
+    <b>Piping 1 : Check console</b><br>
 </body>
 
 <script>
-    const value = { salary: 45000 }
-    const getSalary = (person) => person.salary;
-    const addBonus = (salary) => salary + 2000;
-    const deduct = (salary) => salary - (salary * 0.1);
-    const ans = pipe(getSalary, addBonus, deduct)(value);
-    console.log(ans);
+    let value = {
+        a: {
+            b: (a, b, c) => a + b + c,
+            c: (a, b, c) => a + b - c,
+        },
+        d: (a, b, c) => a - b - c
+    }
+    console.log(pipe(value)(1, 1, 1));
 </script>
 </body>
 
