@@ -1,44 +1,18 @@
-const aggregateSimple = (arr, on, who) => {
-  let data = new Map();
-  let ans = arr.map((elem) => {
-    if (!data.has(elem[on])) {
-      data.set(elem[on], "");
-      let x = {};
-      x[on] = elem[on];
-      x[who] = [];
-      arr.forEach(el => {
-        if (el[on] == elem[on]) {
-          x[who].push(el[who]);
+const filterArray = (arr, filter) => {
+  if (typeof filter == "string") {
+    for (const entry of arr) {
+      //Object.entries returns array of key value pairs
+      //[['name', 'John'],['id','1']]
+      for (const [key, value] of Object.entries(entry)) {
+        if (value == filter) {
+          return entry;
         }
-      })
-      return x;
-    }
-  })
-  return ans.filter(e => e);
-}
-const aggregate = (arr, on, who) => {
-  // using reduce() method to aggregate 
-  const agg = arr.reduce((a, b) => {
-    //a is accumulator (initial value as {})
-    //b is current value
-
-    const onValue = b[on];
-    const whoValue = b[who];
-
-    if (a[onValue]) {
-      a[onValue] = {
-        [on]: onValue,
-        [who]: [...a[onValue][who], whoValue]
       }
     }
-    else {
-      a[onValue] = {
-        [on]: onValue,
-        [who]: [whoValue]
-      }
-    }
-    return a;
-  }, {});
-  // since initial value was {} , answer would be a kinda Map
-  return Object.values(agg);
+  }
+  //for in checks if the index exists in arr
+  else if (filter in arr) {
+    return arr[filter];
+  }
+  else return undefined
 }

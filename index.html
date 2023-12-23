@@ -9,19 +9,16 @@
 </head>
 
 <body>
-    <b>Aggregate Array of Objects : Check console</b><br>
+    <b>Filter Array of Objects : Check console</b><br>
 </body>
 
 <script>
-    const endorsements = [
-        { skill: 'css', user: 'Bill' },
-        { skill: 'javascript', user: 'Chad' },
-        { skill: 'javascript', user: 'Bill' },
-        { skill: 'css', user: 'Sue' },
-        { skill: 'javascript', user: 'Sue' },
-        { skill: 'html', user: 'Sue' }
+    const arr = [
+        { name: "Amir", id: "1" },
+        { name: "Samlan", id: "2" },
+        { name: "Shahrukh", id: "0" },
     ];
-    console.log(aggregateSimple(endorsements, "user", "skill"));
+    console.log(filterArray(arr, "0"));
 </script>
 </body>
 
