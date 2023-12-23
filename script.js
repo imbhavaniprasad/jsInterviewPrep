@@ -1,21 +1,21 @@
-// const aggregateSimple = (arr) => {
-//   let data = new Map();
-//   let ans = arr.map((elem, index) => {
-//     if (!data.has(elem.user)) {
-//       data.set(elem.user, "");
-//       let x = {};
-//       x.user = elem.user;
-//       x.skills = [];
-//       arr.forEach(el => {
-//         if (el.user == elem.user) {
-//           x.skills.push(el.skill);
-//         }
-//       })
-//       return x;
-//     }
-//   })
-//   return ans.filter(e => e);
-// }
+const aggregateSimple = (arr, on, who) => {
+  let data = new Map();
+  let ans = arr.map((elem) => {
+    if (!data.has(elem[on])) {
+      data.set(elem[on], "");
+      let x = {};
+      x[on] = elem[on];
+      x[who] = [];
+      arr.forEach(el => {
+        if (el[on] == elem[on]) {
+          x[who].push(el[who]);
+        }
+      })
+      return x;
+    }
+  })
+  return ans.filter(e => e);
+}
 const aggregate = (arr, on, who) => {
   // using reduce() method to aggregate 
   const agg = arr.reduce((a, b) => {
