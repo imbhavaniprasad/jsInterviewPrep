@@ -9,31 +9,17 @@
 </head>
 
 <body>
-    <b>Currying : Check console</b><br>
+    <b>Method Chaining 1: Check console</b><br>
 </body>
 
 <script>
-    const bh = new BrowserHistory();
-    bh.visit('A');
-    console.log(bh.current());
+    // calculator.add(10).subtract(2).divide(2).multiply(5);
+    // console.log(calculator.total);
+    const calculator = new CALC();
+    calculator.add(10).subtract(2).divide(2).multiply(5);
+    console.log(calculator.value())
+    // console.log(calculator.total)
 
-    bh.visit('B');
-    console.log(bh.current());
-
-    bh.visit('C');
-    console.log(bh.current());
-
-    bh.backward();
-    console.log(bh.current());
-
-    bh.visit('D');
-    console.log(bh.current());
-
-    bh.backward();
-    console.log(bh.current());
-
-    bh.forward();
-    console.log(bh.current());
 </script>
 </body>
 
