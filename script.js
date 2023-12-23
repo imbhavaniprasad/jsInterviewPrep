@@ -1,41 +1,27 @@
-//analysis :
-//first time it sum is invoked & storage will have 1
-// now it returns temp function
-//so sum(1)(2)=> temp(2) which returns one more func
-// sum(1)(2)(3)=> temp(3)
-//sum(1)(2)(3)(4)=>temp(4)
-// sum(1)(2)(3)(4)()=> returns the reduce data & assigns to res which is what log
-const sum = (...args) => {
-  //spread the arguments in storage array
-  const storage = [...args];
+function BrowserHistory() {
+  // track history
+  this.history = [];
+  this.index = -1;
 
-  //base case
-  //if invoked without any argument
-  if (storage.length === 0) {
-    return 0;
+  // add new url at next index
+  this.visit = function (url) {
+    this.history[++this.index] = url;
+    //consider history starts with 1 index
+    this.history.length = this.index + 1;
   }
-  //closure
-  else {
-    //create an inner function
-    const temp = function (...args2) {
-      //get the arguments of inner function
-      //merge them in existing storage
 
-      storage.push(...args2);
+  // return the url of the current index
+  this.current = function () {
+    return this.history[this.index];
+  }
 
-      //if no arguments are passed 
-      //return the value
-      if (args2.length === 0) {
-        return storage.reduce((a, b) => a + b, 0);
-      }
-      //else return the same function again
-      else {
-        console.log("args2", args2)
-        return temp;
-      }
-    }
-    console.log("temp", temp)
-    //return the function
-    return temp;
+  // go to previous entry
+  this.backward = function () {
+    this.index = Math.max(0, --this.index);
+  }
+
+  // go to next entry
+  this.forward = function () {
+    this.index = Math.min(this.history.length - 1, ++this.index);
   }
 }

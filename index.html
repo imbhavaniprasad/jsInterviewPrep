@@ -13,14 +13,27 @@
 </body>
 
 <script>
-    const res = sum(1, 2, 3, 4)();
-    const res2 = sum(1)(2)(3)(4)();
-    const res3 = sum(1, 2)(3, 4)();
-    const res4 = sum(1, 2, 3)(4)();
-    const res5 = sum(1)(2, 3, 4)();
-    const res6 = sum();
+    const bh = new BrowserHistory();
+    bh.visit('A');
+    console.log(bh.current());
 
-    console.log(res, res2, res3, res4, res5, res6);
+    bh.visit('B');
+    console.log(bh.current());
+
+    bh.visit('C');
+    console.log(bh.current());
+
+    bh.backward();
+    console.log(bh.current());
+
+    bh.visit('D');
+    console.log(bh.current());
+
+    bh.backward();
+    console.log(bh.current());
+
+    bh.forward();
+    console.log(bh.current());
 </script>
 </body>
 
