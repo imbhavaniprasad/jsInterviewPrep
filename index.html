@@ -9,16 +9,18 @@
 </head>
 
 <body>
-    <b>Filter Array of Objects : Check console</b><br>
+    <b>Currying : Check console</b><br>
 </body>
 
 <script>
-    const arr = [
-        { name: "Amir", id: "1" },
-        { name: "Samlan", id: "2" },
-        { name: "Shahrukh", id: "0" },
-    ];
-    console.log(filterArray(arr, "0"));
+    const res = sum(1, 2, 3, 4)();
+    const res2 = sum(1)(2)(3)(4)();
+    const res3 = sum(1, 2)(3, 4)();
+    const res4 = sum(1, 2, 3)(4)();
+    const res5 = sum(1)(2, 3, 4)();
+    const res6 = sum();
+
+    console.log(res, res2, res3, res4, res5, res6);
 </script>
 </body>
 
