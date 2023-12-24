@@ -9,14 +9,22 @@
 </head>
 
 <body>
-    <b>Local Storage with Expiry: Check console</b><br>
+    <b>Count with pause: Check console</b><br>
 </body>
 <script>
-    myLocalStorage.setItem("name", "bhavani", 10000)
-    console.log(myLocalStorage.getItem("name"));
+    const timerObj = timer(10, 10);
+    //start
+    timerObj.startTimer();
+
+    //stop
     setTimeout(() => {
-        console.log(myLocalStorage.getItem("name"));
-    }, 10000);
+        timerObj.stopTimer();
+    }, 6000);
+
+    // setTimeout(() => {
+    //     console.log("e")
+    //     timerObj.startTimer();
+    // }, 7000);
 </script>
 </body>
 

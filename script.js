@@ -1,54 +1,24 @@
-window.myLocalStorage = {
-  getItem(key) {
-    // get the parsed value of the given key
-    let result = JSON.parse(window.localStorage.getItem(key));
-
-    // if the key has value
-    if (result) {
-
-      // if the entry is expired
-      // remove the entry and return null
-      if (result.expireTime <= Date.now()) {
-        window.localStorage.removeItem(key);
-        return null;
-      }
-
-      // else return the value
-      return result.data;
+const timer = (init = 0, step = 1) => {
+  let intervalId;
+  let count = init;
+  //these 2 funcs are like forming closures
+  const startTimer = () => {
+    if (!intervalId) {
+      intervalId = setInterval(() => {
+        console.log(count);
+        count += step;
+      }, 1000);
     }
-
-    // if the key does not have value
-    return null;
-  },
-
-  // add an entry
-  // default expiry is 30 days in milliseconds
-  setItem(key, value, maxAge = 30 * 60 * 60 * 1000) {
-    // store the value as object
-    // along with expiry date
-    let result = {
-      data: value
-    }
-
-
-    if (maxAge) {
-      // set the expiry 
-      // from the current date
-      result.expireTime = Date.now() + maxAge;
-    }
-
-    // stringify the result
-    // and the data in original storage
-    window.localStorage.setItem(key, JSON.stringify(result));
-  },
-
-  // remove the entry with the given key
-  removeItem(key) {
-    window.localStorage.removeItem(key);
-  },
-
-  // clear the storage
-  clear() {
-    window.localStorage.clear();
   }
-};
+
+  const stopTimer = () => {
+    clearInterval(intervalId);
+    intervalId = null;
+  }
+  //we could just invoke timer()() if we have just one return func()
+  // here we have 2 so return them to use invoke them seperately
+  return {
+    startTimer,
+    stopTimer,
+  };
+}
