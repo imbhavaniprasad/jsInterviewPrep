@@ -1,28 +1,54 @@
-const generateSelector = (root, target) => {
-  // trace the selector from target to root
-  const selectors = [];
+window.myLocalStorage = {
+  getItem(key) {
+    // get the parsed value of the given key
+    let result = JSON.parse(window.localStorage.getItem(key));
 
-  // iterate till root parent is found
-  while (target !== root) {
-    // get the position of the current element as its parent child
-    // add one to it ass CSS nth-child is not like array, it starts from 1.
-    //Array.from() method is used to create a new array instance from an array-like or iterable object. 
-    //It allows you to convert objects that are not inherently arrays, such as NodeList, arguments object, or strings, into arrays.
-    const nthChild = Array.from(target.parentNode.children).indexOf(target) + 1;
-    const selector = `${target.tagName.toLowerCase()}:nth-child(${nthChild})`;
+    // if the key has value
+    if (result) {
 
-    // add the selector at the front
-    selectors.unshift(selector);
+      // if the entry is expired
+      // remove the entry and return null
+      if (result.expireTime <= Date.now()) {
+        window.localStorage.removeItem(key);
+        return null;
+      }
 
-    // move to the parent
-    target = target.parentNode;
+      // else return the value
+      return result.data;
+    }
+
+    // if the key does not have value
+    return null;
+  },
+
+  // add an entry
+  // default expiry is 30 days in milliseconds
+  setItem(key, value, maxAge = 30 * 60 * 60 * 1000) {
+    // store the value as object
+    // along with expiry date
+    let result = {
+      data: value
+    }
+
+
+    if (maxAge) {
+      // set the expiry 
+      // from the current date
+      result.expireTime = Date.now() + maxAge;
+    }
+
+    // stringify the result
+    // and the data in original storage
+    window.localStorage.setItem(key, JSON.stringify(result));
+  },
+
+  // remove the entry with the given key
+  removeItem(key) {
+    window.localStorage.removeItem(key);
+  },
+
+  // clear the storage
+  clear() {
+    window.localStorage.clear();
   }
-
-  // add the root's tag name at the beginning
-  // with your preferred selector
-  // id is used here
-  selectors.unshift(`${target.tagName.toLowerCase()}[id="${target.id}"]`);
-
-  // join the path of the selector and return them
-  return selectors.join(' > ');
-}
+};
