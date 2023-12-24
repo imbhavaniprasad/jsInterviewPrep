@@ -1,50 +1,28 @@
-//obs : classes or methods or functions as class (instances can be created for) can't have let const...
-//refers using this
-//here we pass this to next funcs
-//with methods we cant create instances
-// const calculator = {
-//   total: 0,
-//   add: function (val) {
-//     this.total += val;
-//     return this;
-//   },
-//   subtract: function (val) {
-//     this.total -= val;
-//     return this;
-//   },
-//   divide: function (val) {
-//     this.total /= val;
-//     return this;
-//   },
-//   multiply: function (val) {
-//     this.total *= val;
-//     return this;
-//   }
-// };
+const generateSelector = (root, target) => {
+  // trace the selector from target to root
+  const selectors = [];
 
-// so use functions
-const CALC = function () {
-  this.total = 0;
+  // iterate till root parent is found
+  while (target !== root) {
+    // get the position of the current element as its parent child
+    // add one to it ass CSS nth-child is not like array, it starts from 1.
+    //Array.from() method is used to create a new array instance from an array-like or iterable object. 
+    //It allows you to convert objects that are not inherently arrays, such as NodeList, arguments object, or strings, into arrays.
+    const nthChild = Array.from(target.parentNode.children).indexOf(target) + 1;
+    const selector = `${target.tagName.toLowerCase()}:nth-child(${nthChild})`;
 
-  this.add = (val) => {
-    this.total += val;
-    return this;
+    // add the selector at the front
+    selectors.unshift(selector);
+
+    // move to the parent
+    target = target.parentNode;
   }
 
-  this.subtract = (val) => {
-    this.total -= val;
-    return this;
-  }
+  // add the root's tag name at the beginning
+  // with your preferred selector
+  // id is used here
+  selectors.unshift(`${target.tagName.toLowerCase()}[id="${target.id}"]`);
 
-  this.multiply = (val) => {
-    this.total *= val;
-    return this;
-  }
-
-  this.divide = (val) => {
-    this.total /= val;
-    return this;
-  }
-
-  this.value = () => this.total;
+  // join the path of the selector and return them
+  return selectors.join(' > ');
 }
