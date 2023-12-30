@@ -1,28 +1,13 @@
-const containerEl = document.querySelector(".container");
+const clickBtn = document.getElementById("click");
+const popupContainerEl = document.querySelector(".popup-container");
+const container = document.querySelector(".container")
+const closeBtn = document.querySelector(".close-icon");
+clickBtn.addEventListener("click", () => {
+  container.classList.add("active")
+  popupContainerEl.classList.remove("active")
+})
 
-const careers = ["YouTuber", "Web Developer", "Freelancer", "Instructor"];
-
-let careerIndex = 0;
-
-let characterIndex = 0;
-
-updateText();
-
-function updateText() {
-  characterIndex++;
-  containerEl.innerHTML = `
-    <h1>I am ${careers[careerIndex].slice(0, 1) === "I" ? "an" : "a"} ${careers[
-      careerIndex
-    ].slice(0, characterIndex)}</h1>
-    `;
-  console.log(careers[careerIndex].slice(0, characterIndex))
-  if (characterIndex === careers[careerIndex].length) {
-    careerIndex++;
-    characterIndex = 0;
-  }
-
-  if (careerIndex === careers.length) {
-    careerIndex = 0;
-  }
-  setTimeout(updateText, 400);
-}
+closeBtn.addEventListener("click", () => {
+  container.classList.remove("active")
+  popupContainerEl.classList.add("active")
+})
