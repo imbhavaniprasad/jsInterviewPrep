@@ -1,71 +1,106 @@
-*{
+
+/* transform-origin: bottom center; important which sets where the So, transform-origin: bottom center; sets the transform origin at the center horizontally and the bottom vertically of the element. When you apply a CSS transform (like rotate, scale, etc.) to the element, it will be transformed around this specified point. The combination of bottom and center means that the element rotates or scales around its horizontal center at the bottom edge.*/
+body {
     margin: 0;
-    box-sizing: border-box;
-}
-.container{
+    padding: 0;
+    font-family: 'Courier New', Courier, monospace;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: url("https://img.freepik.com/free-vector/matrix-style-binary-code-digital-falling-numbers-blue-background_1017-37387.jpg");
-    height: 100vh;
-background-size: cover;
-text-align: center;
-flex-direction: column;
-transition: filter 0.5s;
-}
-h2{
-    color: white;
-    font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
-    font-size: 28px;
-}
-#click{
-    border: 2px solid rgb(183, 183, 255);
-    background-color: blueviolet;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 10px;
-}
-.active.container{
-    filter: blur(5px) brightness(0.7);
-}
-.popup-container{
-    position: fixed;
-    top: 50%;
-    right: 50%;
-    background-color: #74722a;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    width: 300px;
-    height: 200px;
-    border-radius: 10px;
-    transform: translateX(50%) translateY(-50%);
-    opacity: 1;
-    transition: all 0.2s;
-}
-input{
-    border: 1px solid black;
-    padding: 10px;
-    border-radius: 5px;
-    width: 80%;
-}
-#join-btn{
-    background-color: #6f9136;
-    color: white;
-    cursor: pointer;
-    padding: 9px;
-    border-radius: 5px;
-}
-.close-icon{
+    background-color: #a38d8a;
+  }
+  
+  b {
     position: absolute;
-    top: 18px;
-    right: 15px;
-    font-size: 10px;
-    cursor: pointer;
-}
-.active.popup-container{
-    visibility: hidden;
-    opacity: 0;
-}
+    top: 60px;
+    left: 50%;
+    transform: translateX(-52%);
+    width: 70px;
+    z-index: 2;
+    text-align: center;
+  }
+  
+  .clock {
+    width: 350px;
+    height: 350px;
+    background-color: lightgray;
+    border-radius: 100%;
+    border: 5px solid darkgrey;
+    box-shadow: 1px 1px 4px rgba(0,0,0,.7);
+    position: relative;
+  }
+  
+  
+  
+  .numbers div {
+    position: absolute;
+    font-size: 27px;
+    font-weight: bold;
+    color: lightgoldenrodyellow;
+    text-shadow: 1px 1px 2px rgba(0,0,0,.7);
+  }
+  
+  .twelve {
+    top: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .three {
+    right: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  
+  .six {
+    bottom: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .nine {
+    left: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  
+  .arrows {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .arrows::before {
+    content: "";
+    width: 25px;
+    height: 25px;
+    background-color: darkgreen;
+    border-radius: 50%;
+    box-shadow: 1px 1px 2px rgba(0,0,0,.7);
+    z-index: 4;
+  }
+  
+  .arrows div {
+    width: 7px;
+    height: 120px;
+    background-color: rgb(182, 141, 141);
+    position: absolute;
+    bottom: 50%;
+    box-shadow: 1px 1px 2px rgba(0,0,0,.7);
+    border-radius: 50% 50% 0 0;
+    transform-origin: bottom center;
+    z-index: 3;
+  }
+  
+  .arrows .hour {
+    height: 80px;
+    transform: rotate(30deg);
+  }
+  
+  .arrows .second {
+    background-color: rgb(114, 94, 42);
+    transform: rotate(250deg);
+   
+  }  

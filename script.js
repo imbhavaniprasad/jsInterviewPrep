@@ -1,13 +1,21 @@
-const clickBtn = document.getElementById("click");
-const popupContainerEl = document.querySelector(".popup-container");
-const container = document.querySelector(".container")
-const closeBtn = document.querySelector(".close-icon");
-clickBtn.addEventListener("click", () => {
-  container.classList.add("active")
-  popupContainerEl.classList.remove("active")
-})
+const hour = document.querySelector(".hour");
+const minute = document.querySelector(".minute");
+const second = document.querySelector(".second");
 
-closeBtn.addEventListener("click", () => {
-  container.classList.remove("active")
-  popupContainerEl.classList.add("active")
-})
+function setDate() {
+  const now = new Date();
+
+  const getSecond = now.getSeconds();
+  const getMinute = now.getMinutes();
+  const getHour = now.getHours();
+
+  const secondDegree = (getSecond / 60) * 360;
+  const minuteDegree = (getMinute / 60) * 360;
+  const hourDegree = (getHour / 12) * 360;
+
+  second.style.transform = `rotate(${secondDegree}deg)`;
+  minute.style.transform = `rotate(${minuteDegree}deg)`;
+  hour.style.transform = `rotate(${hourDegree}deg)`;
+}
+
+setInterval(setDate, 1000);
