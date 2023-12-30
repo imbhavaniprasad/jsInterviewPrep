@@ -1,7 +1,28 @@
-const searchBarContainerEl = document.querySelector(".search-bar-container");
+const containerEl = document.querySelector(".container");
 
-const magnifierEl = document.querySelector(".magnifier");
+const careers = ["YouTuber", "Web Developer", "Freelancer", "Instructor"];
 
-magnifierEl.addEventListener("click", () => {
-  searchBarContainerEl.classList.toggle("active");
-});
+let careerIndex = 0;
+
+let characterIndex = 0;
+
+updateText();
+
+function updateText() {
+  characterIndex++;
+  containerEl.innerHTML = `
+    <h1>I am ${careers[careerIndex].slice(0, 1) === "I" ? "an" : "a"} ${careers[
+      careerIndex
+    ].slice(0, characterIndex)}</h1>
+    `;
+  console.log(careers[careerIndex].slice(0, characterIndex))
+  if (characterIndex === careers[careerIndex].length) {
+    careerIndex++;
+    characterIndex = 0;
+  }
+
+  if (careerIndex === careers.length) {
+    careerIndex = 0;
+  }
+  setTimeout(updateText, 400);
+}
