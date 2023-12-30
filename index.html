@@ -4,155 +4,129 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Response Navbar</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="script.js" defer type="text/javascript"></script>
+    <title>JS Interview Prep</title>
 </head>
 <style>
-    body {
-        margin: 0;
-        padding: 0;
-        font-family: sans-serif;
-        background: #f1f5f8;
-        line-height: 2.2;
-        font-size: 0.875rem;
-    }
-
-    ul {
-        list-style-type: none;
-    }
-
-    a {
-        text-decoration: none;
-    }
-
-    nav {
-        background: white;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    }
-
-    .fa-bars,
-    .fa-close {
-        font-size: 1.5rem;
-        color: #e94949;
-        cursor: pointer;
-    }
-
-    .fa-close {
-        display: none;
-    }
-
-    #menuOpen:hover,
-    #menuClose:hover {
-        color: black;
-    }
-
-    .menu li {
-        color: grey;
-        letter-spacing: 0.1rem;
-        display: block;
-        padding: 0.5rem 1rem;
-        transition: all 0.3s linear;
-    }
-
-    .menu li:hover {
-        background: #f8a5a5;
-        color: #e94949;
-        padding-left: 1.5rem;
-    }
-
-    .menu li #signin {
+    #calculator {
+        width: 300px;
+        margin: 0 auto;
         padding: 10px;
-        background-color: blue;
-        color: white;
-        border-radius: 5px;
-        width: 100px;
+        background: #eee;
+        box-shadow: 0 0 3px;
+    }
+
+    /* Calculate Area Style */
+    #calc-area {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    #calc-area>span,
+    #calc-area>textarea {
+        display: inline-flex;
+        flex: 100%;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+
+    #calc-area>textarea {
+        border: 2px solid #eee;
+        background: #f8f8f4;
+        box-shadow: 0 0 3px;
+        min-height: 60px;
+        resize: none;
+        font-size: 1.8em;
+        letter-spacing: 2.5px;
+    }
+
+    #calc-area>span {
+        font-size: 2em;
+    }
+
+    /* Button area style */
+    #button-area {
+        padding: 10px 0;
+    }
+
+    .button-group {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .button-group>span {
+        display: inline-flex;
+        flex: 1 1;
+        padding: 15px 10px;
+        justify-content: center;
+        align-items: center;
+        background: #604f36;
+        margin: 4px;
+        border-radius: 50%;
+        color: #fff;
+        font-size: 2em;
+        box-shadow: 0 0 3px #968585;
+        transition: all 0.2s ease;
+        opacity: 0.8;
         cursor: pointer;
     }
 
-    .menu {
-        height: 0;
-        overflow: hidden;
-        transition: all 0.3s linear;
+    .button-group>span.calc {
+        flex: 2.5;
+        border-radius: 7px;
+        background: #00a132;
     }
 
-    .show-menu {
-        height: 12rem;
-    }
-
-    .nav-header {
-        display: flex;
-        height: 20px;
-        align-items: center;
-        justify-content: space-between;
-        padding: 1rem;
-    }
-
-    @media (min-width: 800px) {
-        nav {
-            max-width: 1170px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 1rem;
-        }
-
-        .nav-header {
-            padding: 0;
-        }
-
-        #menuOpen,
-        #menuClose {
-            display: none !important;
-        }
-
-        .menu {
-            height: auto;
-            display: flex;
-        }
-
-        .menu li {
-            padding: 0;
-            margin: 0 0.5rem;
-        }
-
-        .menu li:hover {
-            padding: 0;
-            background: transparent;
-        }
+    .button-group>span:hover {
+        opacity: 1;
     }
 </style>
 
 <body>
-    <nav>
-        <div class="nav-header">
-            <h2>Bhavani</h2>
-            <i class="fa fa-bars" id="menuOpen"></i>
-            <i class="fa fa-close" id="menuClose"></i>
-        </div>
-
-        <ul class="menu">
-            <li>Home</li>
-            <li>About</li>
-            <li>Contact</li>
-            <li><button id="signin">SignIn</button></li>
-        </ul>
-
-    </nav>
-    <script>
-        const openBtn = document.getElementById("menuOpen");
-        const closeBtn = document.getElementById("menuClose");
-        openBtn.addEventListener("click", () => {
-            openBtn.style.display = "none"
-            closeBtn.style.display = "block"
-            document.querySelector(".menu").classList.toggle("show-menu")
-        })
-        closeBtn.addEventListener("click", () => {
-            openBtn.style.display = "block"
-            closeBtn.style.display = "none"
-            document.querySelector(".menu").classList.toggle("show-menu")
-        })
-    </script>
+    <div id="calculator">
+        <section id="calc-area">
+            <span>Calculator</span>
+            <!--Disabled? Coz we use event listeners & add the keydown nums to textarea-->
+            <textarea id="view" disabled></textarea>
+        </section>
+        <!-- Button Area -->
+        <section id="buttons-area">
+            <div class="button-group">
+                <span class="opr">%</span>
+                <span class="clear">C</span>
+                <span class="delete">
+                    Del </span>
+                <span class="opr">/</span>
+            </div>
+            <div class="button-group">
+                <span class="num">7</span>
+                <span class="num">8</span>
+                <span class="num">9</span>
+                <span class="opr">*</span>
+            </div>
+            <div class="button-group">
+                <span class="num">4</span>
+                <span class="num">5</span>
+                <span class="num">6</span>
+                <span class="opr">-</span>
+            </div>
+            <div class="button-group">
+                <span class="num">1</span>
+                <span class="num">2</span>
+                <span class="num">3</span>
+                <span class="opr">+</span>
+            </div>
+            <div class="button-group">
+                <span class="num">0</span>
+                <span class="num">.</span>
+                <span class="calc">=</span>
+            </div>
+        </section>
+    </div>
+</body>
 </body>
 
 </html>
