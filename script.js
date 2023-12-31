@@ -1,21 +1,23 @@
-const hour = document.querySelector(".hour");
-const minute = document.querySelector(".minute");
-const second = document.querySelector(".second");
+const emojiEl = document.querySelectorAll(".far")
+const starEl = document.querySelectorAll(".fa-star");
+const colorsArray = ["red", "orange", "lightblue", "lightgreen", "voilet"];
 
-function setDate() {
-  const now = new Date();
+starEl.forEach((star, index) => {
+  star.addEventListener("click", () => {
+    updateRating(index);
+  })
+})
 
-  const getSecond = now.getSeconds();
-  const getMinute = now.getMinutes();
-  const getHour = now.getHours();
+const updateRating = (index) => {
+  starEl.forEach((star, idx) => {
+    if (idx <= index) {
+      star.classList.add("active");
+    }
+    else star.classList.remove("active");
+  })
 
-  const secondDegree = (getSecond / 60) * 360;
-  const minuteDegree = (getMinute / 60) * 360;
-  const hourDegree = (getHour / 12) * 360;
-
-  second.style.transform = `rotate(${secondDegree}deg)`;
-  minute.style.transform = `rotate(${minuteDegree}deg)`;
-  hour.style.transform = `rotate(${hourDegree}deg)`;
+  emojiEl.forEach((emoji, idx) => {
+    emoji.style.transform = `translateX(-${index * 50}px)`;
+    emoji.style.color = colorsArray[idx];
+  })
 }
-
-setInterval(setDate, 1000);
