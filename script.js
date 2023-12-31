@@ -36,6 +36,7 @@ const checkWinner = () => {
   }
 }
 const resetGame = () => {
+  fillCount = 0;
   setTimeout(() => {
     box.forEach((item, idx) => {
       item.innerHTML = "";
