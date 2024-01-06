@@ -1,99 +1,151 @@
-// helper function to create a key from the input
-const generateKey = (path, config) => {
-//The localeCompare method is a string method in JavaScript that is used for comparing strings in a locale-sensitive way. It takes another string as an argument and returns a value indicating whether the string comes before, after, or is equal to the given string based on the locale-specific order.
-//If you don't use localeCompare in the sorting function, the sort method will perform a lexicographic (dictionary-style) sorting of the keys. This means that the keys will be sorted based on their Unicode code points, which may not be appropriate for all languages and locales.
-
-const key = Object.keys(config)
-    .sort((a, b) => a.localeCompare(b))
-    .map((k) => k + ":" + config[k].toString())
-    .join("&");
-  return path + key;
-};
-
-// helper function to make api call
-const makeApiCall = async (path, config) => {
-  try{
-    let response = await fetch(path, config);
-    response = await response.json();
-    return response;
-  }catch(e){
-    console.log("error " + e);
+let snake = [{x:2,y:10}];
+const board = document.getElementById("game");
+console.log(board)
+const instruct = document.querySelector(".instruct");
+let direction = "right";
+const gridSize = 20;
+let food = generateFoodPos();
+let snakeTimer;
+let gameStarted=false;
+let lastPoop = Date.now();
+let poopDelay = 20000;
+let poop;
+function draw() {
+    board.innerHTML = '';
+    generateSnake();
+    generateFood();
+    generatePoop();
   }
-  
-  return null;
-};
-
-const cachedApiCall = (time) => {
-  // to cache data
-  const cache = {};
-  
-  // return a new function
-  return async function(path, config = {}) {
-    // get the key
-    const key = generateKey(path, config);
-    
-    // get the value of the key
-    let entry = cache[key];
-  
-    // if there is no cached data
-    // or the value is expired
-    // make a new API call
-    if(!entry || Date.now() > entry.expiryTime){
-      console.count("making new api call");
-      
-      // store the new value in the cache
-      try {
-        const value = await makeApiCall(path, config)
-        cache[key] = { value, expiryTime: Date.now() + time };
-      }catch(e){
-       console.log(error); 
-      }
+const generateSnake = ()=>{
+snake.map((item)=>{
+    const newSnake = generateItem("snake",item);
+    board.appendChild(newSnake);
+})
+}
+const generateFood=()=>{
+    const foodItem = generateItem("item",food);
+    board.appendChild(foodItem)
+}
+const generatePoop=()=>{
+    if(poop && snake.length>5){
+        const poopItem = generateItem("poop",poop);
+        console.log("poop",poop)
+        board.appendChild(poopItem);
     }
-    //return the cache
-    return cache[key].value;
+}
+function generateFoodPos(){
+    const x = Math.floor(Math.random() * gridSize)+1
+    const y = Math.floor(Math.random() * gridSize)+1
+    let foundObject = snake.find(obj => obj.x === x && obj.y === y);
+    if(foundObject){
+        return generateFoodPos();
+    }
+    return {x,y};
+}
+function generateItem(tag,pos){
+    if(gameStarted){
+        const item = document.createElement("div");
+        item.className=tag;
+        item.style.gridRow = pos.x
+        item.style.gridColumn = pos.y;
+        return item;
+    }
+}
+
+function move(){
+
+    const head = {...snake[0]};
+  switch(direction){
+    case 'right':
+        head.y++;
+        break;
+    case 'left':
+        head.y--;
+        break;
+    case 'up':
+        head.x--;
+        break;
+    case 'down':
+        head.x++;
+        break;
   }
-};
-
-const call = cachedApiCall(1500);
-
-// first call
-// an API call will be made and its response will be cached
-call('https://jsonplaceholder.typicode.com/todos/1', {}).then((a) => console.log(a));
-//"making new api call"
-/*
-{
-  "userId": 1,
-  "id": 1,
-  "title": "delectus aut autem",
-  "completed": false
+  snake.unshift(head);
+  if(eatFood(head)){
+    food = generateFoodPos();
+    startGame()
+  }
+  else{
+let tail = snake.pop();
+if(Date.now()-lastPoop>poopDelay){
+    poop = tail;
+    lastPoop = Date.now();
 }
-*/
-
-// cached response will be returned
-// it will be quick
-setTimeout(() => {
-  call('https://jsonplaceholder.typicode.com/todos/1', {}).then((a) => console.log(a));
-}, 700);
-/*
-{
-  "userId": 1,
-  "id": 1,
-  "title": "delectus aut autem",
-  "completed": false
+  } 
 }
-*/
-
-// a fresh API call is made
-// as time for cached entry is expired
-setTimeout(() => {
-  call('https://jsonplaceholder.typicode.com/todos/1', {}).then((a) => console.log(a));
-}, 2000);
-//"making new api call"
-/*
-{
-  "userId": 1,
-  "id": 1,
-  "title": "delectus aut autem",
-  "completed": false
+function startGame(){
+    gameStarted=true;
+    instruct.style.display='none'
+        clearInterval(snakeTimer)
+        snakeTimer = setInterval(()=>{
+            move()
+            checkCollision();
+            draw()
+        },200);
+    }
+function resetGame(){
+    clearInterval(snakeTimer)
+    board.innerHTML="";
+    poop=null;
+    instruct.style.display='block';
+    snake=[{x:2,y:10}];
+    direction="right"
+    gameStarted = false;
 }
-*/
+function checkCollision(){
+    const head = snake[0];
+if(head.x<1 || head.x>20 || head.y<1 || head.y>20){
+    resetGame()
+}
+for(let i=1;i<snake.length;i++){
+if(head.x==snake[i].x && head.y==snake[i].y){
+    resetGame()
+}
+}
+if(poop && head.x==poop.x && head.y==poop.y){
+    snake.splice(-2);
+    poop=null;
+    lastPoop = Date.now();
+    startGame();
+}
+}
+
+function eatFood(head){
+    if(head.x==food.x && head.y==food.y) return true;
+    return false; 
+}
+
+document.addEventListener("keydown",(e)=>{
+
+    if (
+        (!gameStarted && e.code === 'Space') ||
+        (!gameStarted && e.key === ' ')
+      ) {
+        startGame();
+      }
+        else{
+    switch(e.key){
+        case "ArrowUp":
+            direction="up"
+            break;
+        case "ArrowDown":
+            direction="down"
+            break;
+        case "ArrowRight":
+            direction="right"
+            break;
+        case "ArrowLeft":
+            direction="left"
+            break;
+    }
+}
+})

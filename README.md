@@ -1,0 +1,1 @@
+##The speciality of this snake is, It poops & If you eat it, 2 blocks will be popped;
