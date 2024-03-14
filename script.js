@@ -103,7 +103,7 @@ function bestBtst() {
     let bestPrice = Number.MAX_SAFE_INTEGER;
     for (let i = 0; i < prices.length; i++) {
         //profit = prices[i] - bestPrice > profit ? prices[i] - bestPrice : profit;
-        Math.max(profit, prices[i] - bestPrice);
+        profit = Math.max(profit, prices[i] - bestPrice);
         //bestPrice = prices[i] < bestPrice ? prices[i] : bestPrice;
         bestPrice = Math.min(bestPrice, prices[i]);
     }
