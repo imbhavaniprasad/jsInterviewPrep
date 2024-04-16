@@ -1,25 +1,25 @@
 const libraryMap = {
-    "libraryA": ["libraryB", "libraryC"],
-    "libraryB": ["libraryC", "libraryA"],
-    "libraryC": ["libraryD"],
-    "libraryD": ["libraryE"],
-    "libraryE": ["libraryF"],
-    "libraryF": ["libraryX"]
+  "libraryA": ["libraryB", "libraryC"],
+  "libraryB": ["libraryC", "libraryA"],
+  "libraryC": ["libraryD"],
+  "libraryD": ["libraryE"],
+  "libraryE": ["libraryF"],
+  "libraryF": ["libraryX"]
 };
 function checkDependencies() {
-    let ans = {};
-    for (let key in libraryMap) {
-        libraryMap[key].map(lib => {
-            if (!libraryMap.hasOwnProperty(lib)) {
-                console.log("invalid value ", lib)
-                return;
-            }
-            if (libraryMap[lib].includes(key)) {
-                console.log(key + " depends " + lib);
-            }
+  let ans = {};
+  for (let key in libraryMap) {
+    libraryMap[key].map(lib => {
+      if (!libraryMap.hasOwnProperty(lib)) {
+        console.log("invalid value ", lib)
+        return;
+      }
+      if (libraryMap[lib].includes(key)) {
+        console.log(key + " depends " + lib);
+      }
 
-        })
-    }
+    })
+  }
 }
 checkDependencies();
 
@@ -39,3 +39,16 @@ checkDependencies();
 //         }
 //     }
 // }
+
+//flatten with keys
+
+function flatten(y = {}, prefix = "") {
+  for (let key in y) {
+    if (typeof y[key] === "object" && y[key] !== null) {
+      flatten(y[key], `${prefix}${key}.`);
+    }
+    else {
+      ans[`${prefix}${key}`] = y[key];
+    }
+  }
+}
