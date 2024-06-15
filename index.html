@@ -3,13 +3,76 @@
 
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="style.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="script.js" defer src="text/javascript"></script>
+    <!-- <script src="script.js" defer src="text/javascript"></script> -->
     <title>JS Interview Prep</title>
 </head>
 
 <body>
-    <b>Interviewer Asked these</b>
+    <div class="nav">Navigation Bar</div>
+    <div class="container">
+        <div class="main">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="sidebar">
+            <div class="content-wrapper">
+                <div>1</div>
+                <div>2</div>
+                <div>3</div>
+                <div>4</div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">Footer Content</div>
+    <script>
+
+        let sidebar = document.getElementsByClassName("sidebar")[0];
+        let sidebar_content = document.getElementsByClassName("content-wrapper")[0];
+        let nav = document.getElementsByClassName("nav")[0];
+        let navHeight = nav.getBoundingClientRect().height;
+
+        let footer = document.getElementsByClassName("footer")[0];
+        let footerHeight = footer.getBoundingClientRect().height;
+        window.onscroll = () => {
+            let scrollTop = window.scrollY;
+
+            let viewportHeight = window.innerHeight;
+
+            let sidebarTop = sidebar.getBoundingClientRect().top + window.pageYOffset;
+            let contentHeight = sidebar_content.getBoundingClientRect().height;
+            let mainContentHeight = document.querySelector('.container').getBoundingClientRect().height;
+            let footerTop = footer.getBoundingClientRect().top + window.pageYOffset;
+            if (scrollTop >= contentHeight - viewportHeight + sidebarTop) {
+                sidebar_content.style.position = "fixed";
+                sidebar_content.style.top = `${navHeight}px`;
+                //sidebar_content.style.transform = `translateY(${navHeight}px)`;
+                //sidebar_content.style.maxHeight = `calc(100vh - ${navHeight}px)`;
+            }
+            else {
+                sidebar_content.style.transform = "";
+                sidebar_content.style.position = "";
+                sidebar_content.style.top = "";
+            }
+            // if (scrollTop + viewportHeight >= footerTop) {
+            //     console.log(footerTop);
+            //     sidebar_content.style.position = "";
+            //     sidebar_content.style.top = "";
+            //     sidebar_content.style.transform = "";
+            //     sidebar_content.style.maxHeight = `calc(100vh - ${navHeight}px - ${footerHeight}px - 40px)`; /* Adjust height */
+            // } else {
+            //     sidebar_content.style.maxHeight = `calc(100vh - ${navHeight}px - 20px)`; /* Reset height */
+            // }
+        };
+    </script>
 </body>
 
 <script>
