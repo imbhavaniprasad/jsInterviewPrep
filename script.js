@@ -7,6 +7,20 @@ function palindrome() {
 }
 //palindrome();
 
+//palindrom without utils
+let isPalindrome = function (x) {
+    let copyNum = x, reverseNum = 0;
+
+    while (copyNum > 0) {
+        const lastDigit = copyNum % 10;
+        reverseNum = reverseNum * 10 + lastDigit;
+        copyNum = Math.floor(copyNum / 10);
+    }
+
+    return x === reverseNum;
+};
+//console.log(isPalindrome(121)); // true
+
 //Fibanocci
 
 function fibonacci(n) {
@@ -78,6 +92,24 @@ function twoSum() {
     return [];
 }
 // console.log(twoSum())
+
+//array nums containing n distinct numbers in the range [0, n], return the only number in the range that is missing from the array
+//0 to n means, we will have 0-n nums in an array if 0,4 (4 is n: nums length)
+//so expected sum : 4 (4+1/2)
+let missingNumber = function (nums) {
+    let sum = 0;
+    for (let i = 0; i < nums.length; i++) {
+        sum += nums[i];
+    }
+    return nums.length * (nums.length + 1) / 2 - sum;
+};
+
+// One Line Solution: 
+//let missingNumber = (nums) => nums.length*(nums.length+1)/2 - nums.reduce((acc, num) => num + acc);
+
+// console.log(missingNumber([3,0,1])); // 2
+// console.log(missingNumber([9,6,4,2,3,5,7,0,1])); // 8
+
 
 //Best TIME TO BUY & SELL A STOCK
 
