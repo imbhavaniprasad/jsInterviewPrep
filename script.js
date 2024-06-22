@@ -156,12 +156,12 @@ const words = ['apple', 'banana', 'cherry', 'dragonfruit', 'elderberry'];
 //             return 0;
 //         if (haystack.length() == 0)
 //             return -1;
-        
-        
+
+
 //         for (int i = 0; i < haystack.length(); i++) {
 //             // no enough places for needle after i
 //             if (i + needle.length() > haystack.length()) break;
-            
+
 //             for (int j = 0; j < needle.length(); j++) {
 //                 if (haystack.charAt(i+j) != needle.charAt(j))
 //                     break;
@@ -169,7 +169,7 @@ const words = ['apple', 'banana', 'cherry', 'dragonfruit', 'elderberry'];
 //                     return i;
 //             }
 //         }
-        
+
 //         return -1;
 //     }
 
@@ -178,7 +178,7 @@ const words = ['apple', 'banana', 'cherry', 'dragonfruit', 'elderberry'];
 // Logic:
 // -> m
 // -> i
-// not match, reinitialize window start to next index of m. 
+// not match, reinitialize window start to next index of m.
 // That is "i" from the word "mississipi"
 
 // -> i s s i s
@@ -224,3 +224,96 @@ const words = ['apple', 'banana', 'cherry', 'dragonfruit', 'elderberry'];
 //         return -1;
 //     }
 // }
+//-------------------
+//Anagram
+// const s = "aacc";
+// const t = "ccac";
+// function isAnagram(s, t) {
+//     if (s.length != t.length) console.log("false")
+//     var obj = {}, obj2 = {};
+//     for (let i = 0; i < s.length; i++) {
+//         obj[s[i]] = obj[s[i]] ? obj[s[i]] + 1 : 1;
+//         obj2[t[i]] = obj2[t[i]] ? obj2[t[i]] + 1 : 1;
+//     }
+//     console.log("obj", obj, obj2)
+//     for (const key in obj) {
+//         if (obj[key] != obj2[key]) console.log("false")
+//     }
+//     console.log("true")
+
+// };
+// isAnagram(s, t)
+
+//longest common prefix
+function longestCommonPrefix(strs) {
+    let maxLen = strs.reduce((acc, init) => {
+        return init.length < acc ? init.length : acc;
+    }, strs[0].length)
+    console.log(maxLen)
+    let i = 0;
+    for (i = 0; i < maxLen; i++) {
+        for (let j = 0; j < strs.length; j++) {
+            if (strs[0][i] != strs[j][i]) return strs[0].slice(0, i);
+        }
+    }
+    return "";
+};
+console.log(longestCommonPrefix(["a"]));
+//***console.log("a".slice(0, 0))=> returns empty as both start & end are same
+//----------------------------------------------------
+//merge alternative chars
+// Input: word1 = "abc", word2 = "pqr"
+// Output: "apbqcr"
+//my code
+// function mergeAlternately(word1: string, word2: string): string {
+//     let [minLen,maxLen] = word1.length > word2.length ? [word2,word1] : [word1,word2];
+//     let str="",i=0;
+//     for(i=0;i<minLen.length;i++){
+//   str+= word1[i]+word2[i];
+//     }
+//     return str+ maxLen.slice(i)
+//   };
+
+//43 ms
+//   function mergeAlternately(word1: string, word2: string): string {
+//     let mergedString: string = '';
+//     let i: number = 0;
+//     while (i < word1.length && i < word2.length) {
+//         mergedString += word1[i];
+//         mergedString += word2[i];
+//         i++;
+//     }
+
+//     if (i < word1.length) {
+//         mergedString += word1.slice(i, word1.length);
+//     }
+//     if (i < word2.length) {
+//         mergedString += word2.slice(i, word2.length);
+//     }
+
+//     return mergedString;
+// };
+//so we can use if (x>"a" or x>"0")
+//console.log((() => { if ("z" >= "a" && "z" <= "z") return "yes" })())
+
+//compress string
+//chars = ["a","a","b","b","c","c","c"]
+//Return 6, and the first 6 characters of the input array should be: ["a","2","b","2","c","3"]
+function compress(chars) {
+    let index = 0, count = 0, indexLen = 0;
+    for (index = 0; index < chars.length;) {
+        let charToFind = chars[index];
+        while (index < chars.length && chars[index] == charToFind) {
+            index++;
+            count++;
+        }
+        chars[indexLen++] = charToFind;
+        if (count > 1) {
+            for (let ch of (count + "").split("")) {
+                chars[indexLen++] = ch;
+            }
+        }
+        count = 0;
+    }
+    return indexLen;
+};
