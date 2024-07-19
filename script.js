@@ -258,7 +258,7 @@ function longestCommonPrefix(strs) {
     }
     return "";
 };
-console.log(longestCommonPrefix(["a"]));
+//console.log(longestCommonPrefix(["a"]));
 //***console.log("a".slice(0, 0))=> returns empty as both start & end are same
 //----------------------------------------------------
 //merge alternative chars
