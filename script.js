@@ -1,319 +1,205 @@
-//Time complexity , imagine you have 10 cars
-// O(1): Constant time, like checking the first car.
-// O(n): Linear time, like counting all cars.
-// O(n^2): Quadratic time, like comparing each car with every other car.
-// O(log n): Logarithmic time, like dividing cars into groups repeatedly.
-// O(n log n): Linearithmic time, like sorting efficiently.Divide and Conquer: You split the cars into smaller groups, sort those groups, and then put them back together.
-//---------
-
-// Shallow Copy
-// let originalArray = [1, 2, 3, 4, 5];
-// let shallowCopy = originalArray.slice();
-// let shallowCopy = [...originalArray];
-// let shallowCopy = originalArray.concat()
-// let shallowCopy = Array.from(originalArray);
-// if it is an object
-// let originalObject = { a: 1, b: 2, c: 3 };
-// let shallowCopy = Object.assign({}, originalObject);
-// let shallowCopy = { ...originalObject };
-
-
-//sort ASC
-// const x = [1, 4, 6, 0, -9, -5];
-// x.sort(); // O(NlogN)
-// console.log(x);
-// //sort DESC
-// x.sort((a, b) => b - a);
-// console.log(x);
-//FIND
-
-// The find method in JavaScript is used to find the first element in an array that satisfies a 
-// given condition (predicate function). It returns the value of the first element that passes the test.
-//  If no elements pass the test, it returns undefined.
-// let numbers = [1, 3, 5, 7, 8, 10, 12];
-// let firstEven = numbers.find(number => number % 2 === 0);
-
-// console.log(firstEven); // Output: 8
-
-//Return array (1 index)
-//answer[i] == "FizzBuzz" if i is divisible by 3 and 5.
-// answer[i] == "Fizz" if i is divisible by 3.
-// answer[i] == "Buzz" if i is divisible by 5.
-// answer[i] == i (as a string) if none of the above conditions are true.
-//TIP : in js , 0 means false & non zero value means true
-
-// var fizzBuzz = function (n) {
-//     return new Array(n).fill(0).map((a, i) => (++i % 3 ? '' : 'Fizz') + (i % 5 ? '' : 'Buzz') || '' + i);
-// };
-
-//square root
-// function mySqrt(x) {
-//     let end = x;
-//     let start = 0;
-//     while (start <= end) {
-//         const mid = Math.floor(start + (end - start) / 2); //floor the value here
-//         if (mid * mid == x) return mid;
-//         else if (mid * mid < x) {
-//             start = mid + 1;
-//         }
-//         else end = mid - 1;
-//     }
-//     return end;
-// };
-
-//find longest length word
-const words = ['apple', 'banana', 'cherry', 'dragonfruit', 'elderberry'];
-// let maxHeight = 0;
-// for (let i = 0; i < words.length; i++) {
-//     if (words[i].length > maxHeight) {
-//         maxHeight = words[i].length;
-//     }
-// }
-// console.log(maxHeight)
-// const longestWordLength = words.reduce((maxLength, word) => {
-//     const currentLength = word.length;
-//     return currentLength > maxLength ? currentLength : maxLength;
-// }, 0);
-
-// console.log(longestWordLength); // Output: 11
-//-------------------------------------
-//return largest number factorial
-
-// const numbers = [5, 2, 8, 4, 3];
-
-// const largestFactorial = numbers.reduce((largest, num) => {
-//     const currentFactorial = Array
-//         .from({ length: num })
-//         .map((_, i) => i + 1)
-//         .reduce((fact, val) => fact * val, 1);
-
-//     return currentFactorial > largest ? currentFactorial : largest;
-// }, 1);
-
-// console.log(largestFactorial); // Output: 40320 (8!)
-//-----------------------------------------------------------------
-
-//max in an array
-
-// console.log(Math.max(...numbers))
-//---------------------------------------------------
-
-//factorial in general
-// let ans = 1;
-// for (let i = 1; i <= 8; i++) {
-//     ans *= i;
-// }
-// console.log(ans);
-//-------------------------------------
-
-//calculate avg score of students who scored above 90
-// const students = [
-//     { name: 'John', score: 85 },
-//     { name: 'Sarah', score: 92 },
-//     { name: 'Michael', score: 88 },
-//     { name: 'Emma', score: 95 },
-//     { name: 'Daniel', score: 90 },
-// ];
-//my logic
-// function getAvgScore() {
-//     const scores = students.filter(student => student.score > 90)
-//     return scores.reduce((init, val) => init + val.score, 0) / scores.length;
-// }
-//crazy logic
-// const above90StudentsAverage = students
-//     .filter((student) => student.score > 90)
-//     .reduce((acc, student, i, arr) => acc + student.score / arr.length, 0);
-
-// console.log(getAvgScore())
-//----------------------------------------
-
-//Filter out books published before the year 2000 and return their titles
-// const books = [
-//     { title: 'Book 1', year: 1998 },
-//     { title: 'Book 2', year: 2003 },
-//     { title: 'Book 3', year: 1995 },
-//     { title: 'Book 4', year: 2001 },
-// ];
-
-// console.log(books.filter(book => book.year < 2000).map(book => book.title))
-//----------------------------
-
-//Capitalize the first letter of each word in the array
-// const strings = ['hello world', 'i am openai', 'welcome to javascript'];
-
-// console.log(strings.map(string => string.charAt(0).toUpperCase() + "" + string.slice(1)))
-//------------
-//String length
-// const str = "bhaani"
-// console.log(str.length)
-//--------
-
-//find first index of a string
-//using sliding window concept, below is java code.
-//   public int strStr(String haystack, String needle) {
-//         // empty needle appears everywhere, first appears at 0 index
-//         if (needle.length() == 0)
-//             return 0;
-//         if (haystack.length() == 0)
-//             return -1;
-
-
-//         for (int i = 0; i < haystack.length(); i++) {
-//             // no enough places for needle after i
-//             if (i + needle.length() > haystack.length()) break;
-
-//             for (int j = 0; j < needle.length(); j++) {
-//                 if (haystack.charAt(i+j) != needle.charAt(j))
-//                     break;
-//                 if (j == needle.length()-1)
-//                     return i;
-//             }
-//         }
-
-//         return -1;
-//     }
-
-//alternative
-
-// Logic:
-// -> m
-// -> i
-// not match, reinitialize window start to next index of m.
-// That is "i" from the word "mississipi"
-
-// -> i s s i s
-// -> i s s i p
-// s and p mismatch
-
-// so, reinitialize the window's start
-// -> s
-// -> i
-// not match
-
-// reinitialize
-// -> s
-// -> i
-// not match
-
-// reinitialize
-// -> i s s i p
-// -> i s s i p
-// this time it was a match!
-// class Solution {
-//     public int strStr(String haystack, String needle) {
-//         int hLen = haystack.length();
-//         int nLen = needle.length();
-//         int nIndex = 0;
-//         for(int i=0; i<hLen; i++){
-//             // as long as the characters are equal, increment needleIndex
-//             if(haystack.charAt(i)==needle.charAt(nIndex)){
-//                 nIndex++;
-//             }
-//             else{
-//                 // start from the next index of previous start index
-//                 i=i-nIndex;
-//                 // needle should start from index 0
-//                 nIndex=0;
-//             }
-//             // check if needleIndex reached needle length
-//             if(nIndex==nLen){
-//                 // return the first index
-//                 return i-nLen+1;
-//             }
-//         }
-//         return -1;
-//     }
-// }
-//-------------------
-//Anagram
-// const s = "aacc";
-// const t = "ccac";
-// function isAnagram(s, t) {
-//     if (s.length != t.length) console.log("false")
-//     var obj = {}, obj2 = {};
-//     for (let i = 0; i < s.length; i++) {
-//         obj[s[i]] = obj[s[i]] ? obj[s[i]] + 1 : 1;
-//         obj2[t[i]] = obj2[t[i]] ? obj2[t[i]] + 1 : 1;
-//     }
-//     console.log("obj", obj, obj2)
-//     for (const key in obj) {
-//         if (obj[key] != obj2[key]) console.log("false")
-//     }
-//     console.log("true")
-
-// };
-// isAnagram(s, t)
-
-//longest common prefix
-function longestCommonPrefix(strs) {
-    let maxLen = strs.reduce((acc, init) => {
-        return init.length < acc ? init.length : acc;
-    }, strs[0].length)
-    console.log(maxLen)
-    let i = 0;
-    for (i = 0; i < maxLen; i++) {
-        for (let j = 0; j < strs.length; j++) {
-            if (strs[0][i] != strs[j][i]) return strs[0].slice(0, i);
+//binary search
+function binarySearch(arr, target) {
+    let start = 0, end = arr.length - 1;
+    while (start <= end) {
+        let mid = Math.floor((start + end) / 2);
+        if (arr[mid] == target) {
+            return mid;
+        }
+        if (arr[mid] < target) {
+            start = mid + 1;
+        } else {
+            end = mid - 1;
         }
     }
-    return "";
-};
-console.log(longestCommonPrefix(["a"]));
-//***console.log("a".slice(0, 0))=> returns empty as both start & end are same
-//----------------------------------------------------
-//merge alternative chars
-// Input: word1 = "abc", word2 = "pqr"
-// Output: "apbqcr"
-//my code
-// function mergeAlternately(word1: string, word2: string): string {
-//     let [minLen,maxLen] = word1.length > word2.length ? [word2,word1] : [word1,word2];
-//     let str="",i=0;
-//     for(i=0;i<minLen.length;i++){
-//   str+= word1[i]+word2[i];
-//     }
-//     return str+ maxLen.slice(i)
-//   };
+    return -1;
+}
 
-//43 ms
-//   function mergeAlternately(word1: string, word2: string): string {
-//     let mergedString: string = '';
-//     let i: number = 0;
-//     while (i < word1.length && i < word2.length) {
-//         mergedString += word1[i];
-//         mergedString += word2[i];
-//         i++;
-//     }
+//console.log(binarySearch([1, 2, 3, 4, 5], 1));
 
-//     if (i < word1.length) {
-//         mergedString += word1.slice(i, word1.length);
-//     }
-//     if (i < word2.length) {
-//         mergedString += word2.slice(i, word2.length);
-//     }
+//SORTING 
+//1
+//sort() method in JavaScript sorts elements as strings by default
 
-//     return mergedString;
-// };
-//so we can use if (x>"a" or x>"0")
-//console.log((() => { if ("z" >= "a" && "z" <= "z") return "yes" })())
+// const arr = [-2, -7, 1000, 5]
+// console.log(arr.sort()) // -2, -7, 1000, 5
+// console.log(arr.sort((a, b) => a - b)) // -7, -2 , 5, 1000
+// console.log(arr.sort((a, b) => b - a)) // 1000, 5, -2, -7
 
-//compress string
-//chars = ["a","a","b","b","c","c","c"]
-//Return 6, and the first 6 characters of the input array should be: ["a","2","b","2","c","3"]
-function compress(chars) {
-    let index = 0, count = 0, indexLen = 0;
-    for (index = 0; index < chars.length;) {
-        let charToFind = chars[index];
-        while (index < chars.length && chars[index] == charToFind) {
-            index++;
-            count++;
-        }
-        chars[indexLen++] = charToFind;
-        if (count > 1) {
-            for (let ch of (count + "").split("")) {
-                chars[indexLen++] = ch;
+//2
+//console.log(str.split("").sort().join("")) // "Vahils
+
+//Reason : By default, the sort method sorts the elements of the array in ascending order according to the Unicode values of the characters.
+// Example: ["V", "a", "h", "i", "l", "s"].sort() results in ["V", "a", "h", "i", "l", "s"].
+// Note that uppercase letters come before lowercase letters in Unicode
+//---------------------------------------
+
+//bubble sort
+
+// function bubbleSort(arr) {
+//     for (let i = 0; i < arr.length; i++) {
+//         for (let j = 0; j < arr.length - i; j++) {
+//             if (arr[j] > arr[j + 1]) {
+//                 [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]]
+//             }
+//         }
+//     }
+// }
+
+//optimized
+// function bubbleSort(arr) {
+//     let swapped;
+//     do {
+//         swapped = false
+//         for (let i = 0; i < arr.length; i++) {
+//             for (let j = 0; j < arr.length - i; j++) {
+//                 if (arr[j] > arr[j + 1]) {
+//                     [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]]
+//                     swapped = true;
+//                 }
+//             }
+//         }
+//     } while (swapped)
+
+// }
+// let arr = [1, 4, 2, 0, 9];
+// bubbleSort(arr);
+// console.log(arr)
+
+//selection sort find minIndex & swap with the assumed minIndex
+
+function selectionSort(arr) {
+
+    for (let i = 0; i < arr.length - 1; i++) {
+        let minIndex = i;
+        for (let j = i + 1; j < arr.length; j++) {
+            if (arr[j] < arr[i]) {
+                minIndex = j;
             }
         }
-        count = 0;
+        minIndex != i && ([arr[i], arr[minIndex]] = [arr[minIndex], arr[i]])
     }
-    return indexLen;
-};
+}
+// let arr = [1, 4, 2, 0, 9];
+// selectionSort(arr);
+// console.log(arr)
+function insertionSort(arr) {
+    let n = arr.length;
+
+    for (let i = 1; i < n; i++) {
+        let key = arr[i];
+        let j = i - 1;
+
+        // Move elements of arr[0..i-1], that are greater than key,
+        // at the end of every iteration we would have the correct pos of a key within in the range 0-i
+        //after this while loop we will have the the j value till where the arr is sorted
+        //now push the key into the j+1;
+        while (j >= 0 && arr[j] > key) {
+            arr[j + 1] = arr[j];
+            arr[j] = key; // this is the first thought
+            //but this is wrong approach
+            //In insertion sort, the key should be placed in its correct position only after all larger elements have been shifted to the right. 
+            //This is why the separate assignment arr[j + 1] = key is necessary.
+            j = j - 1;
+        }
+        // arr[j + 1] = key;//this is optimized thought
+    }
+
+    return arr;
+}
+
+// Example usage:
+// let arr = [12, 11, 13, 5, 6];
+// console.log("Sorted array:", insertionSort(arr));
+
+//merge sort
+//split split slap left & right till they are sorted
+
+// const mergeSort = (arr) => {
+//     if (arr.length <= 1) return arr;
+//     const mid = Math.floor(arr.length / 2);
+//     const leftChild = mergeSort(arr.slice(0, mid));
+//     const rightChild = mergeSort(arr.slice(mid));
+//     return merge(leftChild, rightChild);
+// }
+const merge = (left, right) => {
+    //check left & right & keep pushing small
+    let result = [], leftIndex = 0, rightIndex = 0;
+    while (leftIndex < left.length && rightIndex < right.length) {
+        if (left[leftIndex] < right[rightIndex]) {
+            result.push(left[leftIndex++]);
+        } else {
+            result.push(right[rightIndex++]);
+        }
+    }
+    while (leftIndex < left.length) {
+        result.push(left[leftIndex++])
+    }
+    while (rightIndex < right.length) {
+        result.push(right[rightIndex++])
+    }
+    return result;
+    //you can directly use concat instead of checking indices reached lenght or not
+    //The concat method in JavaScript is used to merge two or more arrays into a new array.
+    return result.concat(left.slice(leftIndex)).concat(right.slice(rightIndex));
+}
+
+// console.log(mergeSort([1, 4, 2, 8, 10, 23]))
+
+//inplace merge sort
+//dont create an extra array, instead do inplace
+
+const mergeInPlaceSort = (arr, low, high) => {
+    if (low < high) {
+        const mid = Math.floor((low + high) / 2);
+        mergeInPlaceSort(arr, low, mid);
+        mergeInPlaceSort(arr, mid + 1, high);
+        mergeInPlace(arr, low, mid, high);
+    }
+}
+const mergeInPlace = (arr, low, mid, high) => {
+
+    let result = [], leftIndex = low, rightIndex = mid + 1;
+    //her we need to check mid & high also so use <=
+    while (leftIndex <= mid && rightIndex <= high) {
+        if (arr[leftIndex] < arr[rightIndex]) {
+            result.push(arr[leftIndex++]);
+        } else {
+            result.push(arr[rightIndex++]);
+        }
+    }
+    while (leftIndex <= mid) {
+        result.push(arr[leftIndex++])
+    }
+    while (rightIndex <= high) {
+        result.push(arr[rightIndex++])
+    }
+    //here low could be 0 or any value
+    for (let i = low; i <= high; i++) {
+        arr[i] = result[i - low];
+    }
+}
+// const arr = [1, 4, 2, 8, 10, 23]
+// mergeInPlaceSort(arr, 0, arr.length - 1);
+// console.log(arr)
+
+//quick sort 
+//put a pivot index,push all smaller elements below pivot & greater elements above pivot
+//repeat on all sub arrays
+
+const quickSort = (arr) => {
+    if (arr.length <= 1) return arr;
+    //taking pivot at first or last index could increase time comp...so take randomly
+    let pivot = Math.floor(Math.random() * arr.length)
+    let left = [], right = [];
+    for (let i = 0; i < arr.length; i++) {
+        if (i == pivot) continue
+        if (arr[i] < arr[pivot]) {
+            left.push(arr[i])
+        }
+        else right.push(arr[i])
+    }
+    return [...quickSort(left), arr[pivot], ...quickSort(right)]
+}
+const arr = [1, 4, 2, 8, 10, 23]
+console.log(quickSort(arr))
