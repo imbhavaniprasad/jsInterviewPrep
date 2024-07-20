@@ -201,5 +201,41 @@ const quickSort = (arr) => {
     }
     return [...quickSort(left), arr[pivot], ...quickSort(right)]
 }
-const arr = [1, 4, 2, 8, 10, 23]
-console.log(quickSort(arr))
+//const arr = [1, 4, 2, 8, 10, 23]
+// console.log(quickSort(arr))
+
+// function uniqueOccurrences(arr) {
+//     let map = new Map();
+//     for (let i = 0; i < arr.length; i++) {
+//         map.set(arr[i], (map.get(arr[i]) || 0) + 1);
+//     }
+//     let set = new Set(map.values())
+//     return map.size == set.size;//this is crazy part
+//or this is also good
+//let set = new Set()
+// for(let freq of map.values()){
+//     if(set.has(freq)){
+//         return false
+//     }
+//     set.add(freq);
+// }
+// return true
+// };
+// let arr = [1, 2, 2, 1, 1, 3]; //1:3,2:2,3:1 occurances should be unique
+// uniqueOccurrences(arr);
+
+//Int to Roman
+function intToRoman(num) {
+    let values = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1];
+    let strs = ["M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"];
+
+    let sb = "";
+
+    for (let i = 0; i < values.length; i++) {
+        while (num >= values[i]) {
+            num -= values[i];
+            sb += strs[i];
+        }
+    }
+    return sb;
+};
