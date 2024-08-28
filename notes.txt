@@ -1,0 +1,37 @@
+Currying:
+
+Currying is a functional programming technique where a function with multiple arguments is transformed into a series of functions, each taking a single argument.
+
+Instead of taking all arguments at once, the curried function takes the first argument, returns a new function that takes the next argument, and so on until all arguments are provided. The final function then returns the result.
+
+we can run fn(a,b) as fn(a)(b)
+
+function fn(a){
+    return function(b){
+        return a+b
+    }
+}
+
+Useful:
+
+It helps us to create a higher-order function
+It reduces the chances of error in our function by dividing it into multiple smaller functions that can handle one responsibility.
+It is very useful in building modular and reusable code
+It helps us to avoid passing the same variable multiple times
+It makes the code more readable
+------------
+//Q: Infinite Currying with sum
+
+function fn(a){
+    return function(b){
+        if(b)return fn(a+b);
+        return a;
+    }
+}
+
+fn(1)(2)(3)();  here () is the edge case / end case;
+here you can pass n values
+-----------
+
+Note : function.length refers to the number of parameters the function is defined to accept
+----
