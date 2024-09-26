@@ -35,3 +35,31 @@ here you can pass n values
 
 Note : function.length refers to the number of parameters the function is defined to accept
 ----
+
+use js visualizer to understand the event loop
+
+https://www.jsv9000.app/
+------------------
+Starvation in Js:
+
+It happens because in the microtask queue if one executes and creates another callback 
+function it continuously happens and the microtask queue is not free. 
+due to its higher priority, it’s run again and again whenever the call stack is free and there is no chance of the callback queue to run. due to this callback queue going into starvation.
+--------
+
+const user={
+    name:"Bhavani,
+    sayName:function(){
+       console.log(this.name);
+    }
+}
+
+setTimeout(user.sayName,3000); //returns undefined since the settimeout executes differently & doesnt know the context
+ solution is to bind the original context
+setTimeout(user.sayName.bind(user),3000);
+
+or we can also form a close function & call
+setTimeout(()=>user.sayName(),3000);
+--------
+when you create an object with create, it will push that into prototype
+-------
