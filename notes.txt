@@ -1,189 +1,38 @@
-An empty string (""), which is considered a falsy value
---------------------------------------------------------------
-Symbol is a unique and immutable primitive value. It was introduced in ES6 (ECMAScript 2015) and is often used as a key for object properties to avoid property name collisions.
--------------
-Unique: Every Symbol is guaranteed to be unique, even if you create two symbols with the same description.
-Immutable: Once a symbol is created, its value cannot be changed.
------------
-const sym1 = Symbol();
-const sym2 = Symbol("description");
+First-class functions refer to the concept that functions are treated like any other variable.
 
-Symbol Methods:
-----------------
---Symbol.for(key): This method looks for an existing symbol in the global symbol registry with the specified key and returns it. If it doesn’t exist, it creates a new one. This ensures the same symbol is returned for the same key.
-
-const symGlobal1 = Symbol.for("globalKey");
-const symGlobal2 = Symbol.for("globalKey");
-
-console.log(symGlobal1 === symGlobal2);  // true
-
---Symbol.keyFor(symbol): This method returns the key associated with a symbol in the global registry.
-
-const symGlobal = Symbol.for("globalKey");
-console.log(Symbol.keyFor(symGlobal));  // "globalKey"
----------------------------------------------------------------------------
-
-console.log(parseInt("Bittu"));   // NaN
-console.log(10/"ABC");            // NaN
-console.log(typeof NaN);          // number
-console.log(NaN== NaN);           // false
-console.log(isNaN(NaN))           // true
-------------
-inheritance through constructor functions 
-
-https://chatgpt.com/share/66f5638d-108c-8008-adc4-731e5f2763e5
--------------------------
-// Object in JavaScript is mutable by default.
-// Object.freeze() is used to freeze an object and make it immutable.
-
-// 1. Cant add new properties
-// 2. Cant delete existing properties
-// 3. Cant modify existing properties
--------------------------------------
-Any class has the properties & prototype has constructor & methods you defined in that class
-function Person(fname, lname ){
-    this.firstName= fname;
-    this.lastName= lname;
+function decleration aka function statement :
+function hi(){
+    console.log("hii)
 }
+//Intersection Observer
 
-Person.prototype.getFullName= function(){
-    return this.firstName+ " " + this.lastName;
-}
-----------------------------------------------------
-Prototype: A mechanism in JavaScript that allows objects to inherit properties and methods from other objects.
-Every function in JavaScript has a prototype property, and every object has an internal __proto__ property that points to the object’s prototype.
+The Intersection Observer is a JavaScript API that allows you to observe changes in the intersection (visibility) of a target element with respect to an ancestor element or the viewport. It’s often used to trigger animations or load content lazily (such as images) when an element comes into view, enhancing performance and user experience.
+Use cases :
 
-Prototype chain is used to look up properties and methods, starting from the object itself and going up the chain until the Object.prototype is reached or null.
+Lazy-loading images: Load images only when they are in or near the viewport.
+Infinite scrolling: Load more content when the user scrolls to the bottom of the page.
+Animations: Trigger animations when elements come into view (e.g., fade in).
+Tracking visibility: Track when certain elements (ads, videos, etc.) become visible.
 
-ex: let person1 = new Person("Alice", 25);
+ex: const target = document.querySelector('.targetElement');
 
-console.log(person1.__proto__ === Person.prototype);  // true
-console.log(Person.prototype.__proto__ === Object.prototype);  // true
-console.log(Object.prototype.__proto__);  // null (end of the chain)
------------------------------------------
-// inheritance can be achieved in two ways:
-// class based and prototype based. 
------------------------------------------------------
-Implement inheritance using prototypes
---
-function Parent() {
-    this.parentProperty = true;
-}
-
-Parent.prototype.showParentProperty = function() {
-    return this.parentProperty;
+// Callback function that executes when the target intersects
+const callback = (entries, observer) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      console.log('Element is in view!');
+    } else {
+      console.log('Element is out of view!');
+    }
+  });
 };
 
-function Child() {
-    Parent.call(this);  // Call the Parent constructor // like super()
-    this.childProperty = true;
-}
+// Create a new IntersectionObserver
+const observer = new IntersectionObserver(callback, {
+  root: null, // Default is the viewport
+  rootMargin: '0px', // Margin around the root (viewport)
+  threshold: 0.5 // Percentage of the target's visibility (0.5 = 50%)
+});
 
-// Set up inheritance by linking prototypes
-Child.prototype = Object.create(Parent.prototype);
-console.log(Child.prototype.constructor);  // Parent
-
-// This should not point to Parent, It should point to Child
-// So that the reason we reset the constructor property of Child.prototype
-
-Child.prototype.constructor = Child;
-
-Child.prototype.showChildProperty = function() {
-    return this.childProperty;
-};
-
-let child = new Child();
-console.log(child.showParentProperty());  // true
-console.log(child.showChildProperty());   // true
---------------------------------------------------------
-
-window is the global object in the browser.
-global is the global object in Node.js.
-----------------
-// this refers to the object that is currently calling the function in case of regular function
-// arrow function: this refers to the lexical parent of the function , if nothing then it refers to window
---------
-To set the capturing phase on an element, set true in the 3rd param
-document.getElementById('outerDiv').addEventListener('click', function() {
-        alert('Outer Div Clicked (Capturing Phase)');
-    }, true); //
---------------------
-Infinite currying
---
-function add(a){
-	return function(b){
-  	if(b !== undefined){
-    	return add(a+b)
-    }
-  	return a;
-  }
-}
---
-// pure function always gives the same output for the same input. 
-// It always return the same result when you pass the same arguments
-
-function greeting(name) {
-    return `Hello ${name}`
-}
-
-console.log(greeting("bittu"));
---------
-
-In classes ,if you have 2 vars points to new Person(), even though person1 and person2 have the same method (sayHello), each instance has its own copy of the function in memory.
-i.e, each instance has a copy of functions defined in that class. This becomes inefficient if you create many instances.
-
-To handle this effectively, we add the functions in prototype
-Person.prototype.sayHello = function() {
-  console.log(`Hello, my name is ${this.name} and I'm ${this.age} years old.`);
-};
-
-sayHello is not recreated for each instance. Instead, all instances of Person share the same method on the prototype. This is more efficient in terms of memory usage because the method exists once in memory, no matter how many objects you create.
-----------
-/ The Module Pattern in JavaScript is a way to encapsulate code into independent, reusable modules. 
-// It allows you to organize your code, keep variables and functions private, and expose only the necessary functionality to the outside world.
-
-var Calculator= {
-    result: 0,
-    add: function(a,b){
-        this.result= a+b;
-    },
-    substract: function(a,b){
-        this.result= a-b;
-    },
-    getResult: function(){
-        return this.result;
-    }
-}
-
-Calculator.add(1,2);
--------
-// singleton design pattern
-
-// The Singleton Design Pattern ensures that only one instance of a class exists.
-// It provides a single point of access to that instance throughout the application.
-// It is used when controlling access to a shared resource.
-class Singleton {
-    constructor() {
-        if (!Singleton.instance) {
-            this.data = [];
-            Singleton.instance = this;
-        }
-        return Singleton.instance;
-    }
-    addData(data) {
-        this.data.push(data);
-    }
-    getData() {
-        return this.data;
-    }
-}
-
-const singleton1 = new Singleton();
-const singleton2 = new Singleton();
-
-singleton1.addData("Data 1");
-singleton1.addData("Data 2");
-
-console.log(singleton1.getData());   // [ 'Data 1', 'Data 2' ]
-console.log(singleton2.getData());   // [ 'Data 1', 'Data 2' ]
-----
+// Start observing the target element
+observer.observe(target);
