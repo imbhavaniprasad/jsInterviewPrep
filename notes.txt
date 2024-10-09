@@ -36,3 +36,56 @@ const observer = new IntersectionObserver(callback, {
 
 // Start observing the target element
 observer.observe(target);
+
+---------------
+Create setters & getters
+
+class Person {
+constructor(name) {
+    this.name = name;
+}
+get name() {
+    return this._name;
+}
+set name(value) {
+    this._name = value;
+}
+}
+var person = new Person("James");
+
+
+person.name
+
+person.name = "Jones"
+
+person.name()
+
+person._name = "Jones"
+
+person.name
+
+This statement will not produce an error. It calls the getter method of the name property, which returns the value of this._name. The result will be "James" after instantiation or "Jones" after reassignment.
+person.name = "Jones"
+
+This statement will not produce an error. It calls the setter method of the name property, which updates this._name to "Jones".
+person.name()
+
+This statement will produce an error because person.name is a property, not a function. Therefore, trying to call it as a function results in a TypeError (e.g., "person.name is not a function").
+person._name = "Jones"
+
+This statement will not produce an error. While directly modifying the "_name" property bypasses the setter method, it will still change the internal _name value to "Jones" without any issue.
+
+-----*****Reason why we used _***-, if we hadn't used it & instead
+
+class Person {
+  constructor(name) {
+    this.name = name;
+  }
+  get name() {
+    return this.name;
+  }
+  set name(value) {
+    this.name = value;
+  }
+}
+This code would result in an infinite recursion, because the get and set methods would keep referring to themselves when you try to access this.name. Using this._name avoids this problem, as it creates a separate internal storage for the name.
