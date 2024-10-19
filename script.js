@@ -70,9 +70,9 @@ class LL {
         }
         return curr ? curr.data : -1;
     }
-    reverseNodes() {
+    reverseNodes(start = this.head) {
         let prev = null;
-        let curr = this.head;
+        let curr = start;
         let nxt = null;
         while (curr != null) {
             nxt = curr.next;
@@ -80,7 +80,8 @@ class LL {
             prev = curr;
             curr = nxt;
         }
-        this.head = prev;
+        //this.head = prev;
+        return prev;
     }
     isEmpty() {
         return this.size == 0;
@@ -93,15 +94,90 @@ class LL {
         }
         console.log("*************")
     }
+    reverseHelper(start, k) {
+        let prev = null;
+        let curr = start
+        let nxt = null;
+        let tempK = 0;
+        while (curr != null && tempK++ != k) {
+            nxt = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = nxt;
+        }
+        return { prev, curr };
+    }
+    reverseKNodes(k) {
+        let temp = new Node(-1);
+        let ans = temp;
+        let currHead = this.head;
+        let n = Math.floor(this.size / k);
+        for (let i = 0; i < n; i++) {
+            const { prev, curr } = this.reverseHelper(currHead, k);
+            temp.next = prev;
+            temp = currHead;
+            currHead.next = curr;
+            currHead = curr;
+        }
+        this.head = ans.next;
+    }
+    findMid() {
+        let slow = this.head;
+        let fast = this.head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return slow;
+    }
+    rearrangeNodes() {
+        if (!this.head || !this.head.next) return;
+
+        let mid = this.findMid();
+        let secondHalf = this.reverseNodes(mid.next);
+        if (!secondHalf) return;
+        mid.next = null;
+
+        // Now merge the two halves
+        let firstHalf = this.head;
+        let temp = new Node(-1); // Dummy node to start the merged list
+        let ans = temp;
+
+        while (firstHalf !== null && secondHalf !== null) {
+            temp.next = firstHalf;
+            firstHalf = firstHalf.next;
+            temp = temp.next;
+
+            temp.next = secondHalf;
+            secondHalf = secondHalf.next;
+            temp = temp.next;
+        }
+
+        // If there are remaining nodes in either half, attach them
+        if (firstHalf !== null) {
+            temp.next = firstHalf;
+        } else if (secondHalf !== null) {
+            temp.next = secondHalf;
+        }
+
+        this.head = ans.next; // Update the head of the list
+    }
+
 }
 
 let ll = new LL(0);
 
-ll.addHead(2);
-ll.addTail(5);
-ll.addNode(10);
+// ll.addHead(5);
+// ll.addTail(5);
+ll.addNode(1);
+ll.addNode(2);
+ll.addNode(3);
+ll.addNode(4);
+ll.addNode(5);
 ll.printNodes();
-ll.isEmpty();
-ll.removeHead();
-ll.reverseNodes();
-ll.printNodes()
+// ll.isEmpty();
+// ll.removeHead();
+// ll.reverseNodes();
+//ll.reverseKNodes(4);
+ll.rearrangeNodes()
+ll.printNodes();
