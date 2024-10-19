@@ -142,7 +142,7 @@ var minimumCostOptimized = function (cost) {
 };
 
 
-minimumCostOptimized([6, 5, 7, 9, 2, 2])
+//minimumCostOptimized([6, 5, 7, 9, 2, 2])
 //longest substring without repeating characters
 // function lengthOfLongestSubstring(s) {
 //     //2 indices,start,end
@@ -165,3 +165,78 @@ minimumCostOptimized([6, 5, 7, 9, 2, 2])
 //     }
 //     return Math.max(maxLen, end - start);
 // };
+
+
+//Q: Find a shortest substring with all chars of a string appears at least once
+//bruteforce 
+function findShortSub(str) {
+    let start = 0;
+    let arr = str.split("");
+    let set = new Set(arr)
+    let count = 0;
+    let s = str;
+    let ans = Number.MAX_SAFE_INTEGER;
+    while (start < str.length - set.size) {
+        set.delete(arr[start]);
+        count++;
+        start++;
+        if (set.size == 0) {
+            if (count < ans) {
+                ans = count;
+                s = str.substring(start - count, start)
+            }
+            start = start - count + 1;
+            count = 0;
+            set = new Set(arr);
+        }
+    }
+    return s;
+}
+//console.log(findShortSub("abbbcbbbbabbc"))
+//above solution gives TLE since the usage of initializations of set
+
+//better approach using sliding window (variable)
+
+function findShortSub(str) {
+    let start = 0, minLen = Number.MAX_SAFE_INTEGER, minStr = "";
+    let freqMap = new Map();
+    let uniqueChars = new Set(str).size;  // Number of unique characters in the string
+    let formed = 0;  // Number of unique characters in the current window
+
+    // Sliding window with two pointers
+    for (let end = 0; end < str.length; end++) {
+        // Add the current character to the frequency map
+        let endChar = str[end];
+        freqMap.set(endChar, (freqMap.get(endChar) || 0) + 1);
+
+        // If this character's frequency matches the unique character count
+        if (freqMap.get(endChar) === 1) {
+            formed++;
+        }
+
+        // Shrink the window from the left as long as all unique characters are in the window
+        while (formed === uniqueChars) {
+            // Check if this is the smallest window so far
+            if (end - start + 1 < minLen) {
+                minLen = end - start + 1;
+                minStr = str.substring(start, end + 1);
+            }
+
+            // Try to remove the character at `start` to shrink the window
+            let startChar = str[start];
+            freqMap.set(startChar, freqMap.get(startChar) - 1);
+
+            // If removing this character makes it no longer a complete set, reduce `formed`
+            if (freqMap.get(startChar) === 0) {
+                formed--;
+            }
+
+            start++;
+        }
+    }
+
+    return minStr;
+}
+
+// Example usage
+console.log(findShortSub("abbcac"));  // Output: "bac"
