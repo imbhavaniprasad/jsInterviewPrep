@@ -1,0 +1,89 @@
+Binary tree has 0 or 2 children
+
+leaf node doesnt have children
+
+Root is top node
+
+Nodes whose parents are common : siblings
+
+Depth of a node: Distance from root to the current node
+
+Height: distance from the current node to farthest leaf in its subtree;
+
+Height of a tree = height of root;
+
+No of edges = no of nodes -1;
+
+Max no of leaves in a binary tree : n+1/2;
+
+Height of a tree:
+------------
+var findHeight = function(root) {
+    if (root === null) {
+        return -1; // Return -1 for an empty tree (alternatively, return 0 if height of empty tree is defined as 0)
+    }
+    
+    let leftHeight = findHeight(root.left);
+    let rightHeight = findHeight(root.right);
+    
+    return 1 + Math.max(leftHeight, rightHeight); //need to find the farthest leaf
+};
+
+Traversal techniques:
+----------------------------
+In order : left current right
+Pre order : current left right
+Post order : left right current
+--------------------
+
+In order :
+
+void inorder(root){
+    if(root==null) return null;
+    inorder(root.left);
+    console.log(root.val);
+    inorder(root.right);
+}
+
+Preorder :
+
+void preorder(root){
+    if(root==null) return null;
+    console.log(root.val);
+    preorder(root.left);
+    preorder(root.right);
+}
+
+Post order :
+
+void postorder(root){
+    if(root==null) return null;
+    preorder(root.left);
+    preorder(root.right);
+    console.log(root.val);
+}
+
+The last element in any given post order is the root
+------------
+Level order traversal:
+
+BFS concept using queues
+
+var levelOrder = function(root) {
+    if(root==null) return [];
+    let ans = [];
+    let q = [];
+    q.push(root);
+    while(q.length!=0){
+        let l = [];
+        let size = q.length;
+        for(let i=0;i<size;i++){
+            let temp = q.shift();
+            if(temp.left!=null) q.push(temp.left);
+            if(temp.right!=null) q.push(temp.right);
+            l.push(temp.val)
+        }
+        ans.push(l);
+    }
+    return ans;
+};
